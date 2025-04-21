@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - 'v*.*.*'
+    workflow_dispatch:
+      inputs:
+        version:
+          description: 'Version number (e.g., v1.0.0)'
+          required: true
 
 jobs:
   build:
@@ -29,18 +34,31 @@ jobs:
         run: |
           pyinstaller --onefile orcaslicer_nozzle_variant_maker.py
 
+      - name: Rename artifact
+        shell: bash
+        run: |
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            mv dist/orcaslicer_nozzle_variant_maker.exe dist/orcaslicer_nozzle_variant_maker-windows.exe
+          elif [ "${{ runner.os }}" == "Linux" ]; then
+            mv dist/orcaslicer_nozzle_variant_maker dist/orcaslicer_nozzle_variant_maker-linux
+          elif [ "${{ runner.os }}" == "macOS" ]; then
+            mv dist/orcaslicer_nozzle_variant_maker dist/orcaslicer_nozzle_variant_maker-macos
+          fi
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ runner.os }}-build
-          path: dist/your_script*
+          path: dist/orcaslicer_nozzle_variant_maker*
 
   release:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 
@@ -48,7 +66,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifacts/*-build/your_script*
+            artifacts/*-build/orcaslicer_nozzle_variant_maker-*
           draft: true
           prerelease: false
         env:
