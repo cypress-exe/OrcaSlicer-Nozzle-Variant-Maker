@@ -6,6 +6,10 @@ A user-friendly tool for batch-creating nozzle size variants in OrcaSlicer filam
 
 ![Demo](./images/example-usage.png)
 
+For some strange reason, OrcaSlicer (and Bambu Studio) still lack the ability to automatically generate filament profile variants for different nozzle sizes. This means if you forget to set up profiles for all your nozzle sizes when creating a new filament, you're left with two bad options: start from scratch for each nozzle size, or manually duplicate and modify each profile one by one.
+
+This tool automates that entire process. It can generate nozzle-specific variants of your filament profiles in bulk, adjusting settings as needed for the new nozzle size. It also integrates smoothly with Bambu's cloud services (if enabled). Best of all, it works non-destructively and doesn't install anything on your system—aside from the new profiles it creates.
+
 ## ✨ Features
 
 - 🔍 Auto-discovers OrcaSlicer profiles
