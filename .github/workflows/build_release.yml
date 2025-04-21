@@ -32,7 +32,7 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --onefile orcaslicer_nozzle_variant_maker.py
+          pyinstaller --onefile --windowed orcaslicer_nozzle_variant_maker.py
 
       - name: Rename artifact
         shell: bash
