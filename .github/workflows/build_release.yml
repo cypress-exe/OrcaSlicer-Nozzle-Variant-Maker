@@ -4,11 +4,11 @@ on:
   push:
     tags:
       - 'v*.*.*'
-    workflow_dispatch:
-      inputs:
-        version:
-          description: 'Version number (e.g., v1.0.0)'
-          required: true
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., v1.0.0)'
+        required: true
 
 jobs:
   build:

@@ -1,1 +1,7 @@
 logs/*
+.venv/*
+
+# Ignore build files
+build/
+dist/
+*.spec
